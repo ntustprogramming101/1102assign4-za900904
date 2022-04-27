@@ -476,7 +476,6 @@ for(int n = 5; n >0 ; n--){
 
 				case DOWN:
 				groundhogDisplay = groundhogDown;
-      if(soilHealth[playerCol][playerRow+1]==0){
 				if(playerMoveTimer == 0){
 					playerRow++;
 					playerY = SOIL_SIZE * playerRow;
@@ -487,7 +486,7 @@ for(int n = 5; n >0 ; n--){
 
 				break;
 			}
-}
+
 		}
 
 		image(groundhogDisplay, playerX, playerY);
@@ -664,7 +663,6 @@ void keyPressed(){
 			case DOWN:
       downSoilHealthDecrease = true;
 			downState = true;
-      
 			break;
 		}
 	}else{
