@@ -62,7 +62,6 @@ void setup() {
   space2[n] = (int)(floor(random(0,8))*SOIL_SIZE);
   }
 
-  println(cabbageX);
 
 
 	size(640, 480, P2D);
@@ -120,7 +119,7 @@ void setup() {
 	playerHealth = 2;
 
 	// Initialize soilHealth
-	soilHealth = new int[SOIL_COL_COUNT][SOIL_ROW_COUNT];
+	soilHealth = new int[24][24];
 	for(int i = 0; i < soilHealth.length; i++){
 		for (int j = 0; j < soilHealth[i].length; j++) {
 			 // 0: no soil, 15: soil only, 30: 1 stone, 45: 2 stones
@@ -152,6 +151,46 @@ void setup() {
     }
     
 //row 17~24
+
+
+    for(int j=0;j<16;j++){
+      for(int i=0;i<8;i++){
+
+   //stone2
+        if(j==2||j==5){
+          if(i==0||i==3||i==6){
+          soilHealth[j][i+16] =45;
+        }  
+      }
+        if(j==1||j==4||j==7){
+          if(i==1||i==4||i==7){
+          soilHealth[j][i+16] =45;
+        }  
+      }
+        if(j==0||j==3||j==6){
+          if(i==2||i==5){
+          soilHealth[j][i+16] =45;
+        }  
+      }
+    //stone1
+      if(j==1||j==4||j==7){
+        if(i==0||i==3||i==6){
+          soilHealth[j][i+16] =30;
+        }  
+      }
+      if(j==0||j==3||j==6){
+        if(i==1||i==4||i==7){
+          soilHealth[j][i+16] =30;
+        }  
+      }
+      if(j==2||j==5){
+        if(i==2||i==5){
+          soilHealth[j][i+16] =30;
+        }  
+      }
+
+      }
+    }
 
 
 //soilEmpty
@@ -290,22 +329,94 @@ for(int n = 5; n >0 ; n--){
 }
 
     //row 17~24
-    
-    pushMatrix();
-    translate(0,16*SOIL_SIZE);
-    for(int j=0;j<16;j++){
-      for(int i=0;i<8;i++){
-        int stoneX = width*2-SOIL_SIZE;
-        stoneX = stoneX-SOIL_SIZE*j;
+for(int n = 5; n >0 ; n--){
+  for(int j=0;j<8;j++){
+    for(int i=16;i<24;i++){
+        int areaIndex = floor((i / 4));
+      if(soilHealth[j][i]<30+3*n+1 && soilHealth[j][i]>30){
+        if(j==2||j==5){
+          if(i==16||i==19||i==22){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][4],j*SOIL_SIZE,i*SOIL_SIZE);
+            image(stones[1][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+        }  
+      }
+        if(j==1||j==4||j==7){
+          if(i==17||i==20||i==23){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][4],j*SOIL_SIZE,i*SOIL_SIZE);
+            image(stones[1][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+        }  
+      }
+        if(j==0||j==3||j==6){
+          if(i==18||i==21){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][4],j*SOIL_SIZE,i*SOIL_SIZE);
+            image(stones[1][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+        }  
+      }
+      }
+      
+      if(soilHealth[j][i]<15+3*n+1 && soilHealth[j][i]>15){
+        if(j==2||j==5){
+          if(i==16||i==19||i==22){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+        }  
+      }
+        if(j==1||j==20||j==7){
+          if(i==17||i==20||i==23){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+        }  
+      }
+        if(j==0||j==3||j==6){
+          if(i==18||i==21){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+        }  
+      }
+      
+      }
+  //stone1
+      if(soilHealth[j][i]<15+3*n+1 && soilHealth[j][i]>15){
+        if(j==1||j==4||j==7){
+          if(i==16||i==19||i==22){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+          }  
+        }
+        if(j==0||j==3||j==6){
+          if(i==17||i==20||i==23){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+          }  
+        }
+        if(j==2||j==5){
+          if(i==18||i==21){
+            image(soils[areaIndex][4], j*SOIL_SIZE, i*SOIL_SIZE);
+            image(stones[0][n-1],j*SOIL_SIZE,i*SOIL_SIZE);
+          }  
+        }
+  
+      }
+    }
+  }
+
+}
+       /* if(soilHealth[j][i]<15+3*n+1 && soilHealth[j][i]>15){
         if(j%3>0){
-          image(stone1,stoneX-SOIL_SIZE*i,i*SOIL_SIZE);
+          image(soils[areaIndex][4], stoneX-SOIL_SIZE*i, i*SOIL_SIZE);
+          image(stones[0][n-1],stoneX-SOIL_SIZE*i,i*SOIL_SIZE);
+        }
         }
         if(j%3==2){
-          image(stone2,stoneX-SOIL_SIZE*i,i*SOIL_SIZE);
+          image(stone2,stoneX-SOIL_SIZE*i+SOIL_SIZE,i*SOIL_SIZE);
         }
       }
     }
-    popMatrix();
+}
+    popMatrix();*/
      
      //soilEmpty
     for(int i=1;i<SOIL_ROW_COUNT;i++){
@@ -413,14 +524,17 @@ for(int n = 5; n >0 ; n--){
           if(downSoilHealthDecrease){
             soilHealth[playerCol][playerRow+1]--;
           }
-        }
+        }else{
+          playerMoveDirection = DOWN;
+          playerMoveTimer = playerMoveDuration;
+          }
 				groundhogDisplay = groundhogDown;
 
         if(playerRow==24){
         downState =false;
         }
-        if(soilHealth[playerCol][playerRow+1]==0){
-        downState =false;
+        if(downSoilHealthDecrease==false){
+        groundhogDisplay = groundhogIdle;
         }
 				// Check bottom boundary
 
@@ -435,9 +549,6 @@ for(int n = 5; n >0 ; n--){
 					// For requirement #3:
 					// Note that player never needs to move down as it will always fall automatically,
 					// so the following 2 lines can be removed once you finish requirement #3
-
-					playerMoveDirection = DOWN;
-					playerMoveTimer = playerMoveDuration;
 
 
 				}
@@ -531,7 +642,7 @@ for(int n = 5; n >0 ; n--){
 
     //cabbage
     for(int i = 0; i<6; i++){
-      if(playerX == cabbageX[i] && playerY == cabbageY[i]){
+      if(playerX == cabbageX[i] && playerY == cabbageY[i] && playerHealth<PLAYER_MAX_HEALTH){
          playerHealth++;
          cabbageX[i]=0;
          cabbageY[i]=-240;
@@ -555,6 +666,9 @@ for(int n = 5; n >0 ; n--){
         playerRow = (int) (playerY / SOIL_SIZE);
         playerMoveDirection = 0;
         playerMoveTimer = playerMoveDuration;
+        for(int n=0; n<8; n++){
+        soilHealth[n][0]=15;
+        }
          if(playerHealth<1){
             gameState=GAME_OVER;
 
@@ -604,7 +718,71 @@ for(int n = 5; n >0 ; n--){
 						soilHealth[i][j] = 15;
 					}
 				}
+        // Initialize stones
+ //row 1~8 soilHealth
+    for(int i = 0; i < 8; i++){
+        soilHealth[i][i] =30;
+    }
 
+ //row 9~16 soilHealth
+        for(int i=0;i<8;i++){
+        for(int j=0;j<8;j++){
+          int x = j+8;
+          if(i%4==0){
+            if(j%4>0 && j%4<3){
+          soilHealth[i][x] =30;
+          soilHealth[i+3][x] =30;
+          } 
+          
+          else{
+          soilHealth[i+1][x] =30;
+          soilHealth[i+2][x] =30;
+          }
+          }
+      }
+    }
+    
+//row 17~24
+
+
+    for(int j=0;j<16;j++){
+      for(int i=0;i<8;i++){
+
+   //stone2
+        if(j==2||j==5){
+          if(i==0||i==3||i==6){
+          soilHealth[j][i+16] =45;
+        }  
+      }
+        if(j==1||j==4||j==7){
+          if(i==1||i==4||i==7){
+          soilHealth[j][i+16] =45;
+        }  
+      }
+        if(j==0||j==3||j==6){
+          if(i==2||i==5){
+          soilHealth[j][i+16] =45;
+        }  
+      }
+    //stone1
+      if(j==1||j==4||j==7){
+        if(i==0||i==3||i==6){
+          soilHealth[j][i+16] =30;
+        }  
+      }
+      if(j==0||j==3||j==6){
+        if(i==1||i==4||i==7){
+          soilHealth[j][i+16] =30;
+        }  
+      }
+      if(j==2||j==5){
+        if(i==2||i==5){
+          soilHealth[j][i+16] =30;
+        }  
+      }
+
+      }
+    }
 				// Initialize soidiers and their position
         for(int n=0; n<6; n++){
           soldierX[n] = (int)(floor(random(0,4))*SOIL_SIZE)+4*SOIL_SIZE*n;
